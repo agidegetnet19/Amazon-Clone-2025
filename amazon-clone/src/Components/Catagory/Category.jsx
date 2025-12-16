@@ -11,7 +11,8 @@ function Category() {
                 <CategoryCard
                     key={index}
                     title={item.title}
-                    imgLink={item.imgLink} />
+                    imgLink={item.imgLink}
+                    name={item.name} />
             ))}
         </section>
     )
