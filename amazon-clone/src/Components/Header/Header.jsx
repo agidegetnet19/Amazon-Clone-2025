@@ -10,10 +10,10 @@ import { DataContext } from '../DataProvider/DataProvider';
 function Header() {
     const [{ basket }, dispatch] = useContext(DataContext);
     const totalItem = basket.length;
-    console.log(totalItem)
+
 
     return (
-        <>
+        <section className={classes.fixed}>
             <section>
                 <div className={classes.header_container}>
                     <div className={classes.logo_container}>
@@ -61,7 +61,7 @@ function Header() {
             </section >
             <LowerHeader />
 
-        </>
+        </section>
     )
 }
 
