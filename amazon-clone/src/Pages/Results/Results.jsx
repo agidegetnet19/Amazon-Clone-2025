@@ -5,22 +5,26 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import ProductCard from '../../Components/Product/ProductCard'
 import { productUrl } from '../../Api/endPoints'
+import Loader from '../../Components/Loader/Loader'
 
 function Results() {
     const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
     const { categoryName } = useParams();
     useEffect(() => {
+        setIsLoading(true)
         axios.get(`${productUrl}/products/category/${categoryName}`)
             .then((res) => {
                 setResults(res.data);
             }).catch((err) => {
                 console.log(err);
-            });
+            })
+            .finally(() => { setIsLoading(false) })
     }, [categoryName]);
 
     return (
         <LayOut>
-            <section>
+            {isLoading ? (<Loader />) : (<section>
                 <h1 style={{ padding: "30px" }}>Results</h1>
                 <p style={{ padding: "30px" }}>category/{categoryName}</p>
                 <hr />
@@ -31,7 +35,8 @@ function Results() {
                             product={product} />
                     ))}
                 </div>
-            </section>
+            </section>)}
+
         </LayOut>
     )
 }
