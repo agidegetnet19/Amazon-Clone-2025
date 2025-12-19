@@ -4,13 +4,13 @@ import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import LowerHeader from './LowerHeader';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { DataContext } from '../DataProvider/DataProvider';
+import { auth } from '../../Utility/firebase';
 
 function Header() {
-    const [{ basket }, dispatch] = useContext(DataContext);
-    const totalItem = basket.length;
-
+    const [{ user, basket }, dispatch] = useContext(DataContext);
+    const totalItem = basket?.reduce((amount, item) => { return amount + item.amount; }, 0);
 
     return (
         <section className={classes.fixed}>
@@ -33,7 +33,7 @@ function Header() {
                             <option value="">All</option>
                         </select>
                         <input type="text" name="" id="" placeholder='search product' />
-                        <BsSearch size={25} />
+                        <BsSearch size={38} />
                     </div>
                     {/* right side link  */}
                     <div className={classes.order_container}>
@@ -43,9 +43,20 @@ function Header() {
                                 <option value="">EN</option>
                             </select>
                         </Link>
-                        <Link to="">
-                            <p>Sign In</p>
-                            <span>Account & Lists</span>
+                        <Link to={!user && "/auth"}>
+                            <div>
+                                {
+                                    user ? (
+                                        <><p>Hello {user?.email?.split("@")[0]}</p>
+                                            <span onClick={() => auth.signOut()}>sign Out</span>
+                                        </>
+                                    ) : (
+                                        <> <p>Hello,Sign In</p>
+                                            <span>Account & Lists</span>
+                                        </>
+                                    )
+                                }
+                            </div>
                         </Link>
                         <Link to="/orders">
                             <p>returns</p>

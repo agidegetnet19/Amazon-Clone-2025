@@ -22,7 +22,7 @@ function Product() {
             {isLoading ? (<Loader />) : (<section className={classes.products_container}>
 
                 {products.map((singleProduct) => (
-                    <ProductCard product={singleProduct} key={singleProduct.id} />
+                    <ProductCard product={singleProduct} renderAdd={true} key={singleProduct.id} />
                 ))}
             </section>)}
         </>

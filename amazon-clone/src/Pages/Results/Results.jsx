@@ -32,7 +32,10 @@ function Results() {
                     {results.map((product) => (
                         <ProductCard
                             key={product.id}
-                            product={product} />
+                            product={product}
+                            renderDesc={false}
+                            renderAdd={true}
+                        />
                     ))}
                 </div>
             </section>)}
