@@ -82,7 +82,7 @@
 
 @media screen and(max-width:768px) {
     .product_flexed {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
     }
 }
